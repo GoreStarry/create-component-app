@@ -6,6 +6,7 @@ import {
   generateTestTemplate,
   generateStorybookTemplate,
   generateCosmosTemplate,
+  generateLocaleTemplate,
 } from './templates'
 import defaultOptions from './config.json'
 
@@ -124,7 +125,9 @@ function getFileNames(fileNames, componentName) {
  * @param {boolean} indexFile: include or not an index file
  * @param {boolean} connected: include or not the connect function of redux
  * @param {boolean} includeStories: include or not the storybook file
+ * @param {boolean} includeCosmos: include or not the cosmos fixtures file
  * @param {boolean} includeTests: include or not the test file
+ * @param {boolean} includeLocale: include or not the locale file
  */
 function generateFiles(params) {
   const {
@@ -140,6 +143,7 @@ function generateFiles(params) {
     includeStories,
     includeCosmos,
     includeTests,
+    includeLocale,
   } = params
   const destination = `${path}/${name}`
 
@@ -168,6 +172,13 @@ function generateFiles(params) {
     fs.outputFile(
       `${destination}/__tests__/__fixtures__/default.js`,
       generateCosmosTemplate(name)
+    )
+  }
+
+  if(includeLocale){
+    fs.outputFile(
+      `${destination}/locale/zh-TW_${name}.js`,
+      generateLocaleTemplate(name)
     )
   }
   

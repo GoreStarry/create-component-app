@@ -3,6 +3,7 @@ import generateFunctionalComponent from './js/functional.template'
 import generateTestTemplate from './js/test.template'
 import generateStorybookTemplate from './js/storybook.template'
 import generateCosmosTemplate from './js/cosmos.template';
+import generateLocaleTemplate from './js/locale.template';
 import generateStyleFile from './css/style.template'
 import generateIndexFile from './js/index.template'
 
@@ -24,4 +25,5 @@ export {
   generateTestTemplate,
   generateStorybookTemplate,
   generateCosmosTemplate,
+  generateLocaleTemplate,
 }
