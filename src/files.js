@@ -164,7 +164,7 @@ function generateFiles(params) {
 
   if (includeTests) {
     fs.outputFile(
-      `${destination}/${testFileName}.${testFileMatch}.${jsExtension}`,
+      `${destination}/__tests__/${testFileMatch}.${testFileName}.${jsExtension}`,
       generateTestTemplate(name)
     )
   }
