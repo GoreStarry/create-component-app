@@ -1,0 +1,13 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function generateLocaleTemplate() {
+  return `export default{
+    
+  }`;
+}
+
+exports.default = generateLocaleTemplate;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy90ZW1wbGF0ZXMvanMvbG9jYWxlLnRlbXBsYXRlLmpzIl0sIm5hbWVzIjpbImdlbmVyYXRlTG9jYWxlVGVtcGxhdGUiXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsU0FBU0Esc0JBQVQsR0FBa0M7QUFDaEMsU0FBUTs7SUFBUjtBQUdEOztrQkFFY0Esc0IiLCJmaWxlIjoibG9jYWxlLnRlbXBsYXRlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZnVuY3Rpb24gZ2VuZXJhdGVMb2NhbGVUZW1wbGF0ZSgpIHtcbiAgcmV0dXJuIGBleHBvcnQgZGVmYXVsdHtcbiAgICBcbiAgfWBcbn1cblxuZXhwb3J0IGRlZmF1bHQgZ2VuZXJhdGVMb2NhbGVUZW1wbGF0ZVxuIl19
