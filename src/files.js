@@ -5,6 +5,7 @@ import {
   generateIndexFile,
   generateTestTemplate,
   generateStorybookTemplate,
+  generateCosmosTemplate,
 } from './templates'
 import defaultOptions from './config.json'
 
@@ -137,6 +138,7 @@ function generateFiles(params) {
     jsExtension,
     connected,
     includeStories,
+    includeCosmos,
     includeTests,
   } = params
   const destination = `${path}/${name}`
@@ -157,11 +159,18 @@ function generateFiles(params) {
 
   if (includeStories) {
     fs.outputFile(
-      `${destination}/${name}.stories.${jsExtension}`,
+      `${destination}/__tests__/${name}.stories.${jsExtension}`,
       generateStorybookTemplate(name)
     )
   }
 
+  if (includeCosmos) {
+    fs.outputFile(
+      `${destination}/__tests__/__fixtures__/default.js`,
+      generateCosmosTemplate(name)
+    )
+  }
+  
   if (includeTests) {
     fs.outputFile(
       `${destination}/__tests__/${testFileMatch}.${testFileName}.${jsExtension}`,
