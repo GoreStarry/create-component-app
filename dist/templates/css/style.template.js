@@ -1,0 +1,11 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function generateStyleFile(COMPONENT_NAME) {
+  return `.${COMPONENT_NAME}{}`;
+}
+
+exports.default = generateStyleFile;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy90ZW1wbGF0ZXMvY3NzL3N0eWxlLnRlbXBsYXRlLmpzIl0sIm5hbWVzIjpbImdlbmVyYXRlU3R5bGVGaWxlIiwiQ09NUE9ORU5UX05BTUUiXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsU0FBU0EsaUJBQVQsQ0FBMkJDLGNBQTNCLEVBQTJDO0FBQ3pDLFNBQVEsSUFBR0EsY0FBZSxJQUExQjtBQUNEOztrQkFFY0QsaUIiLCJmaWxlIjoic3R5bGUudGVtcGxhdGUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJmdW5jdGlvbiBnZW5lcmF0ZVN0eWxlRmlsZShDT01QT05FTlRfTkFNRSkge1xuICByZXR1cm4gYC4ke0NPTVBPTkVOVF9OQU1FfXt9YFxufVxuXG5leHBvcnQgZGVmYXVsdCBnZW5lcmF0ZVN0eWxlRmlsZVxuIl19
