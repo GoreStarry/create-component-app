@@ -1,5 +1,6 @@
 {
-    "cssExtension": null,
-    "componentMethods": [],
-    "testFileName": "test"
+  "cssExtension": null,
+  "cssModule": true,
+  "componentMethods": [],
+  "testFileName": "test"
 }

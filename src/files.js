@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import fs from "fs-extra";
 import {
   generateComponentTemplate,
   generateStyleFile,
@@ -7,22 +7,22 @@ import {
   generateStorybookTemplate,
   generateCosmosTemplate,
   generateLocaleTemplate,
-} from './templates'
-import defaultOptions from './config.json'
+} from "./templates";
+import defaultOptions from "./config.json";
 
 /**
  * Get the extension from the filename
  * @param {string} fileName
  */
 function getExtension(fileName) {
-  const splittedFilename = fileName.split('.')
-  const length = splittedFilename.length
+  const splittedFilename = fileName.split(".");
+  const length = splittedFilename.length;
 
-  if (splittedFilename[1] === 'tests') {
-    return `${splittedFilename[length - 2]}.${splittedFilename[length - 1]}`
+  if (splittedFilename[1] === "tests") {
+    return `${splittedFilename[length - 2]}.${splittedFilename[length - 1]}`;
   }
 
-  return splittedFilename[length - 1]
+  return splittedFilename[length - 1];
 }
 
 /**
@@ -32,14 +32,14 @@ function getExtension(fileName) {
  */
 function readFile(path, fileName) {
   return new Promise((resolve, reject) => {
-    fs.readFile(`${path}/${fileName}`, 'utf8', (err, content) => {
+    fs.readFile(`${path}/${fileName}`, "utf8", (err, content) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
 
-      return resolve(content)
-    })
-  })
+      return resolve(content);
+    });
+  });
 }
 
 /**
@@ -51,19 +51,19 @@ function readFile(path, fileName) {
  */
 function generateFileName(newFilePath, newFileName, templateFileName) {
   // Suppose that the index file don't be renamed
-  if (templateFileName.indexOf('index') !== -1) {
-    return templateFileName
+  if (templateFileName.indexOf("index") !== -1) {
+    return templateFileName;
   }
 
   if (fs.existsSync(newFilePath)) {
-    return templateFileName
+    return templateFileName;
   }
 
-  if (templateFileName.includes('COMPONENT_NAME')) {
-    return templateFileName.replace(/COMPONENT_NAME/g, newFileName)
+  if (templateFileName.includes("COMPONENT_NAME")) {
+    return templateFileName.replace(/COMPONENT_NAME/g, newFileName);
   }
 
-  return `${newFileName}.${getExtension(templateFileName)}`
+  return `${newFileName}.${getExtension(templateFileName)}`;
 }
 
 /**
@@ -75,23 +75,23 @@ function generateFileName(newFilePath, newFileName, templateFileName) {
  */
 async function generateFilesFromCustom({ name, path, templatesPath }) {
   try {
-    const files = fs.readdirSync(templatesPath)
+    const files = fs.readdirSync(templatesPath);
 
-    files.map(async (templateFileName) => {
+    files.map(async templateFileName => {
       // Get the template content
-      const content = await readFile(templatesPath, templateFileName)
-      const replaced = content.replace(/COMPONENT_NAME/g, name)
+      const content = await readFile(templatesPath, templateFileName);
+      const replaced = content.replace(/COMPONENT_NAME/g, name);
       // Exist ?
       const newFileName = generateFileName(
         `${path}/${name}/`,
         name,
         templateFileName
-      )
+      );
       // Write the new file with the new content
-      fs.outputFile(`${path}/${name}/${newFileName}`, replaced)
-    })
+      fs.outputFile(`${path}/${name}/${newFileName}`, replaced);
+    });
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 }
 
@@ -107,9 +107,9 @@ function getFileNames(fileNames, componentName) {
     testFileMatch: componentName,
     componentFileName: componentName,
     styleFileName: componentName,
-  }
+  };
 
-  return { ...defaultFileNames, ...fileNames }
+  return { ...defaultFileNames, ...fileNames };
 }
 
 /**
@@ -137,6 +137,7 @@ function generateFiles(params) {
     path,
     indexFile,
     cssExtension,
+    cssModule,
     componentMethods,
     jsExtension,
     connected,
@@ -144,49 +145,49 @@ function generateFiles(params) {
     includeCosmos,
     includeTests,
     includeLocale,
-  } = params
-  const destination = `${path}/${name}`
+  } = params;
+  const destination = `${path}/${name}`;
 
   const {
     testFileName,
     testFileMatch,
     componentFileName,
     styleFileName,
-  } = getFileNames(fileNames, name)
+  } = getFileNames(fileNames, name);
 
   if (indexFile || connected) {
     fs.outputFile(
       `${destination}/index.js`,
       generateIndexFile(componentFileName, connected)
-    )
+    );
   }
 
   if (includeStories) {
     fs.outputFile(
       `${destination}/__tests__/${name}.stories.${jsExtension}`,
       generateStorybookTemplate(name)
-    )
+    );
   }
 
   if (includeCosmos) {
     fs.outputFile(
       `${destination}/__tests__/__fixtures__/default.js`,
       generateCosmosTemplate(name)
-    )
+    );
   }
 
-  if(includeLocale){
+  if (includeLocale) {
     fs.outputFile(
       `${destination}/locale/zh-TW_${name}.js`,
       generateLocaleTemplate(name)
-    )
+    );
   }
-  
+
   if (includeTests) {
     fs.outputFile(
       `${destination}/__tests__/${testFileMatch}.${testFileName}.${jsExtension}`,
       generateTestTemplate(name)
-    )
+    );
   }
 
   // Create js file
@@ -194,18 +195,23 @@ function generateFiles(params) {
     `${destination}/${componentFileName}.${jsExtension}`,
     generateComponentTemplate(type, componentFileName, {
       cssExtension,
+      cssModule,
       componentMethods,
       styleFileName,
     })
-  )
+  );
 
   // Create css file
   if (cssExtension) {
     fs.outputFile(
       `${destination}/${styleFileName}.${cssExtension}`,
       generateStyleFile(styleFileName)
-    )
+    );
+    fs.outputFile(
+      `${destination}/styles/_handheld${styleFileName}.${cssExtension}`,
+      generateStyleFile(styleFileName)
+    );
   }
 }
 
-export { generateFiles, generateFilesFromCustom }
+export { generateFiles, generateFilesFromCustom };
