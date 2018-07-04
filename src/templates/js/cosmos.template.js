@@ -1,11 +1,15 @@
-function generateCosmosTemplate() {
-  return `export default{
+function generateCosmosTemplate(COMPONENT_NAME) {
+  return `
+  import ${COMPONENT_NAME} from '../../${COMPONENT_NAME}';
+  export default{
+    component: ${COMPONENT_NAME},
+    name: 'default',
     props:{
-      styles:{
+      style:{
 
       },
     },
-  }`
+  }`;
 }
 
-export default generateCosmosTemplate
+export default generateCosmosTemplate;

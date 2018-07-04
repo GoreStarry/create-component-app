@@ -15,7 +15,7 @@ function generateReactImport(componentType) {
 
 function generateComponentMethods(componentMethods) {
   if (componentMethods.length === 0) {
-    return "";
+    return null;
   }
   let methods = "";
   componentMethods.forEach(method => {
@@ -27,21 +27,15 @@ function generateComponentMethods(componentMethods) {
 function generateImports(
   COMPONENT_NAME,
   componentType,
-  { cssExtension = defaultOptions.cssExtension, styleFileName, cssModule }
+  { cssExtension = defaultOptions.cssExtension, styleFileName }
 ) {
-  return `
-  ${generateReactImport(componentType)}
+  return `${generateReactImport(componentType)}
 import PropTypes from 'prop-types'
-${cssModule ? "// import classNames from 'classnames/bind';" : ""}
 ${
     cssExtension
-      ? `
-  import styles from './${styleFileName}.${cssExtension}'
-  `
+      ? `import styles from './${styleFileName}.${cssExtension}'`
       : ""
-  }
-  ${cssModule ? "// const cx = classNames.bind(styles);';" : ""}
-  `;
+  }`;
 }
 
 function generateClassComponent(
@@ -50,23 +44,22 @@ function generateClassComponent(
   {
     cssExtension = defaultOptions.cssExtension,
     componentMethods = defaultOptions.componentMethods,
-    cssModule,
     styleFileName,
   }
 ) {
-  const className = cssModule
-    ? `{styles.${COMPONENT_NAME}}`
-    : `"COMPONENT_NAME"`;
   return `${generateImports(COMPONENT_NAME, componentType, {
     cssExtension,
     styleFileName,
   })}
 
 class ${COMPONENT_NAME} extends ${COMPONENT_TYPES[componentType]} {
+    constructor(props) {
+        super(props)
+    }
     ${generateComponentMethods(componentMethods)}
     render() {
         return (
-            <div className=${className}></div>
+            <div className="${COMPONENT_NAME}"></div>
         );
     }
 }

@@ -9,13 +9,15 @@ describe('${COMPONENT_NAME}', () => {
 
   beforeEach(() => {
     props = {}
-    component = shallow(<${COMPONENT_NAME} {...props} />)
+    component = shallow(<${COMPONENT_NAME} {...props} />,{
+      // disableLifecycleMethods: true,
+    })
   })
 
   it('should', () => {
     expect(component).toMatchSnapshot()
   })
-})`
+})`;
 }
 
-export default generateTestTemplate
+export default generateTestTemplate;
