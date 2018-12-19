@@ -207,10 +207,10 @@ function generateFiles(params) {
       `${destination}/${styleFileName}.${cssExtension}`,
       generateStyleFile(styleFileName)
     );
-    fs.outputFile(
-      `${destination}/styles/_handheld${styleFileName}.${cssExtension}`,
-      generateStyleFile(styleFileName)
-    );
+    // fs.outputFile(
+    //   `${destination}/styles/_handheld${styleFileName}.${cssExtension}`,
+    //   generateStyleFile(styleFileName)
+    // );
   }
 }
 
